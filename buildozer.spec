@@ -21,6 +21,20 @@ source.include_exts = py,png,jpg,kv,atlas
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
 
+# (str) Entry point to your application (should be a Python file)
+entrypoint = main.py
+
+# (bool) Automatically convert .kv files to .py
+# If True, .kv files are converted automatically when the application is built
+# If False, you need to manually load .kv files in your main.py
+auto_build_kv = True
+
+# Set the SDK path (ensure this is correct on your machine)
+android.sdk = /home/user/android-sdk
+# Set the NDK path (ensure this is correct on your machine)
+android.ndk = /home/user/android-ndk
+# Set the Java JDK path (ensure this is correct on your machine)
+android.jdk = /home/user/jdk
 # (list) List of directory to exclude (let empty to not exclude anything)
 #source.exclude_dirs = tests, bin, venv
 
@@ -44,10 +58,10 @@ requirements = python3,kivy,kivymd,pillow
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename = %(source.dir)s/data/expensestracker_splash.png
+presplash.filename = %(source.dir)s/expensestracker_splash.png
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/data/expenses_tracker_logo.png
+icon.filename = %(source.dir)s/expenses_tracker_logo.png
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
@@ -95,7 +109,7 @@ fullscreen = 0
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
-#android.permissions = android.permission.INTERNET, (name=android.permission.WRITE_EXTERNAL_STORAGE;maxSdkVersion=18)
+android.permissions = INTERNET,ACCESS_FINE_LOCATION
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
