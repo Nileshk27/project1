@@ -46,11 +46,11 @@ jobs:
     - name: Install Buildozer
       run: |
         pip3 install buildozer
-
+        export PATH=$PATH:/home/user/.local/bin
     - name: Build with Buildozer
       uses: ArtemSBulgakov/buildozer-action@v1
       with:
-        command:  buildozer -v Sandroid debug
+        command:  buildozer -v android debug
         buildozer_version: stable
 
     - name: Upload artifacts
