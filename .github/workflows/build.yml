@@ -23,6 +23,7 @@ jobs:
         unzip /tmp/cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools
         rm /tmp/cmdline-tools.zip
         wget https://dl.google.com/android/repository/android-ndk-r21e-linux-x86_64.zip
+        sudo chown -R $USER:$USER /home/user
         unzip android-ndk-r21e-linux-x86_64.zip -d /home/user/
         export ANDROID_NDK_HOME=/home/user/android-ndk
     
