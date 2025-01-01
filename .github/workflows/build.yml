@@ -1,5 +1,4 @@
 name: CI
-
 on:
   push:
     branches: [ main ]
@@ -9,55 +8,34 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-
-    - name: Install Android SDK and NDK
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y openjdk-8-jdk unzip
-        mkdir -p $HOME/android-sdk/cmdline-tools
-        wget https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O cmdline-tools.zip
-        unzip cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools
-        mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
-        export ANDROID_HOME=$HOME/android-sdk
-        export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-        export PATH=$ANDROID_HOME/platform-tools:$PATH
-        yes | sdkmanager --licenses
-        sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.3"
-
 
     - name: Cache Buildozer global directory
       uses: actions/cache@v2
       with:
         path: .buildozer_global
-        key: buildozer-global-${{ hashFiles('buildozer.spec') }}
+        key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
 
-    - name: Cache Buildozer local directory
+    - name: Cache Buildozer
       uses: actions/cache@v2
       with:
         path: .buildozer
-        key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
+        key: ${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
 
-    - name: Cache Android SDK and NDK
-      uses: actions/cache@v2
-      with:
-        path: $HOME/android-sdk
-        key: android-sdk-${{ hashFiles('buildozer.spec') }}
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip openjdk-8-jdk unzip
 
     - name: Install Buildozer
-      run: pip install buildozer
+      run: |
+        pip3 install buildozer
 
     - name: Build with Buildozer
       uses: ArtemSBulgakov/buildozer-action@v1
-      id: buildozer
       with:
-        command: -v android debug
+        command: "android debug"
         buildozer_version: stable
 
     - name: Upload artifacts
