@@ -30,7 +30,7 @@ entrypoint = main.py
 auto_build_kv = True
 
 # Set the SDK path (ensure this is correct on your machine)
-android.sdk = /home/user/android-sdk
+#android.sdk = /home/user/android-sdk
 # Set the NDK path (ensure this is correct on your machine)
 android.ndk = /home/user/android-ndk
 # Set the Java JDK path (ensure this is correct on your machine)
