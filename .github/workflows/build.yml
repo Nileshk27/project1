@@ -45,8 +45,11 @@ jobs:
 
     - name: Install Buildozer
       run: |
-        pip3 install buildozer
-        export PATH=$PATH:/home/user/.local/bin
+        python -m pip install --upgrade pip
+        pip install buildozer
+        export PATH=$PATH:/home/user/.local/bin  # Add this line to update PATH
+        buildozer -v android debug  # Your buildozer command
+        
     - name: Build with Buildozer
       uses: ArtemSBulgakov/buildozer-action@v1
       with:
