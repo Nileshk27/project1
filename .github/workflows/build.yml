@@ -22,10 +22,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y openjdk-8-jdk unzip
         wget https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O cmdline-tools.zip
-        mkdir -p $HOME/android-sdk/cmdline-tools
-        unzip cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools/
+        mkdir -p $HOME/android-sdk/cmdline-tools/latest
+        unzip cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools/latest
         export ANDROID_HOME=$HOME/android-sdk
-        export PATH=$ANDROID_HOME/cmdline-tools/bin:$PATH
+        export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+        export PATH=$ANDROID_HOME/platform-tools:$PATH
         yes | sdkmanager --licenses
         sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.3"
 
