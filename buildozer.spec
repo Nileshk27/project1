@@ -22,7 +22,7 @@ source.include_exts = py,png,jpg,kv,atlas
 #source.exclude_exts = spec
 
 # (str) Entry point to your application (should be a Python file)
-entrypoint = main.py
+#entrypoint = main.py
 
 # (bool) Automatically convert .kv files to .py
 # If True, .kv files are converted automatically when the application is built
@@ -124,7 +124,7 @@ android.permissions = INTERNET,ACCESS_FINE_LOCATION
 #android.sdk = 20
 
 # (str) Android NDK version to use
-#android.ndk = 23b
+#android.ndk = 21b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
