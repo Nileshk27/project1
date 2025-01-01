@@ -119,7 +119,7 @@ fullscreen = 0
 #android.private_storage = True
 
 # (str) Android NDK directory (if empty, it will be automatically downloaded.)
-android.sdk = /home/runner/android-sdk
+android.sdk = /home/user/android-sdk
 
 
 # (str) Android SDK directory (if empty, it will be automatically downloaded.)
