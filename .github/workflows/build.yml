@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -11,22 +11,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Cache Buildozer global directory
-      uses: actions/cache@v2
-      with:
-        path: .buildozer_global
-        key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
-
-    - name: Cache Buildozer
-      uses: actions/cache@v2
-      with:
-        path: .buildozer
-        key: ${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
-
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3-pip openjdk-8-jdk unzip
+        sudo apt-get install -y python3-pip openjdk-8-jdk unzip wget
+
+    - name: Install Android SDK
+      run: |
+        mkdir -p $HOME/android-sdk/cmdline-tools
+        wget https://dl.google.com/android/repository/commandlinetools-linux-8520003_latest.zip -O /tmp/cmdline-tools.zip
+        unzip /tmp/cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools
+        rm /tmp/cmdline-tools.zip
+        yes | $HOME/android-sdk/cmdline-tools/bin/sdkmanager --licenses
+        $HOME/android-sdk/cmdline-tools/bin/sdkmanager "platforms;android-29" "build-tools;29.0.3" "ndk;21.4.7075529"
+
+    - name: Set up Android SDK environment variables
+      run: |
+        echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
+        echo "PATH=$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/29.0.3:$ANDROID_HOME/ndk/21.4.7075529:$PATH" >> $GITHUB_ENV
 
     - name: Install Buildozer
       run: |
