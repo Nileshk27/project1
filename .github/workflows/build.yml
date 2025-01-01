@@ -50,7 +50,7 @@ jobs:
     - name: Build with Buildozer
       uses: ArtemSBulgakov/buildozer-action@v1
       with:
-        command: "android debug"
+        command:  buildozer -v Sandroid debug
         buildozer_version: stable
 
     - name: Upload artifacts
