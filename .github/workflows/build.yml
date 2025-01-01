@@ -12,11 +12,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Get Date
-      id: get-date
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install Android SDK and NDK
       run: |
-        echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-      shell: bash
+        sudo apt-get update
+        sudo apt-get install -y openjdk-8-jdk unzip
+        wget https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O cmdline-tools.zip
+        mkdir -p $HOME/android-sdk/cmdline-tools
+        unzip cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools/
+        export ANDROID_HOME=$HOME/android-sdk
+        export PATH=$ANDROID_HOME/cmdline-tools/bin:$PATH
+        yes | sdkmanager --licenses
+        sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.3"
 
     - name: Cache Buildozer global directory
       uses: actions/cache@v2
@@ -30,23 +41,20 @@ jobs:
         path: .buildozer
         key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Cache Android SDK and NDK
+      uses: actions/cache@v2
       with:
-        python-version: '3.10'
+        path: $HOME/android-sdk
+        key: android-sdk-${{ hashFiles('buildozer.spec') }}
 
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y python3-dev libffi-dev libssl-dev libsqlite3-dev zlib1g-dev libncurses5 libncurses5-dev libreadline-dev libbz2-dev
-        pip install --upgrade pip
-        pip install buildozer
+    - name: Install Buildozer
+      run: pip install buildozer
 
     - name: Build with Buildozer
       uses: ArtemSBulgakov/buildozer-action@v1
       id: buildozer
       with:
-        command: android debug
+        command: -v android debug
         buildozer_version: stable
 
     - name: Upload artifacts
