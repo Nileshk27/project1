@@ -46,6 +46,7 @@ jobs:
     - name: Install Buildozer
       run: |
         python -m pip install --upgrade pip
+        pip install cython  # Install Cython
         pip install buildozer
         export PATH=$PATH:/home/user/.local/bin  # Add this line to update PATH
         buildozer -v android debug  # Your buildozer command
