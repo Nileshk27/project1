@@ -32,7 +32,7 @@ auto_build_kv = True
 # Set the SDK path (ensure this is correct on your machine)
 #android.sdk = /home/user/android-sdk
 # Set the NDK path (ensure this is correct on your machine)
-android.ndk = /home/user/android-ndk
+#android.ndk = /home/user/android-ndk
 # Set the Java JDK path (ensure this is correct on your machine)
 android.jdk = /home/user/jdk
 # (list) List of directory to exclude (let empty to not exclude anything)
@@ -124,7 +124,7 @@ android.permissions = INTERNET,ACCESS_FINE_LOCATION
 #android.sdk = 20
 
 # (str) Android NDK version to use
-#android.ndk = 21b
+android.ndk = 21b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
