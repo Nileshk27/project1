@@ -22,9 +22,9 @@ jobs:
         wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -O /tmp/cmdline-tools.zip
         unzip /tmp/cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools
         rm /tmp/cmdline-tools.zip
-        wget https://dl.google.com/android/repository/android-ndk-r25b-linux-x86_64.zip
+        wget https://dl.google.com/android/repository/android-ndk-r21b-linux-x86_64.zip
         mkdir -p $HOME/android-ndk
-        unzip android-ndk-r25b-linux-x86_64.zip -d $HOME/android-ndk
+        unzip android-ndk-r21b-linux-x86_64.zip -d $HOME/android-ndk
         export ANDROID_NDK_HOME=$HOME/android-ndk
 
         mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
