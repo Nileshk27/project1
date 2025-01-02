@@ -39,6 +39,15 @@ jobs:
         echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
         echo "PATH=$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/29.0.3:$ANDROID_NDK_HOME:$PATH" >> $GITHUB_ENV
 
+    - name: Accept Licenses
+      run: |
+        yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
+
+    - name: Install Android Build-Tools
+      run: |
+        $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;36.0.0-rc3"
+
+
     - name: Install Buildozer
       run: |
         python -m pip install --upgrade pip
